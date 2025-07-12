@@ -13,8 +13,9 @@ public class EBook extends Book{
             throw new IllegalArgumentException("EBooks can be only bought one at a time !!");
 
         System.out.println("Sending EBook '" + title + "' x" + quantity + " to email - " + email);
-        System.out.println("Paid amount: $" + (price*quantity));
-        return price;
+        double amount = price * quantity;
+        System.out.println("Paid amount: $" + amount);
+        return amount;
     }
     
 }

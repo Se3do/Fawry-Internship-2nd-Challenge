@@ -52,5 +52,18 @@ public class QuantumBookstoreTests {
         } catch (Exception ex) {
             System.out.println("Error: " + ex.getMessage());
         }
+
+        System.out.println("\n---- Testing Input Validation ----");
+        try {
+            bookstore.buyBook(null, 1, "email@test.com", "address");
+        } catch (Exception ex) {
+            System.out.println("Error (null ISBN): " + ex.getMessage());
+        }
+
+        try {
+            bookstore.buyBook("123", -1, "email@test.com", "address");
+        } catch (Exception ex) {
+            System.out.println("Error (negative quantity): " + ex.getMessage());
+        }
     }
 }

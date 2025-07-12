@@ -13,19 +13,38 @@ public class QuantumBookstore {
         int currentYear = Calendar.getInstance().get(Calendar.YEAR); 
         List<Book> removedBooks = new ArrayList<>();
 
-        for(int i = 0; i < inventory.size(); i++) {
-            Book book = inventory.get(i);
+        Iterator<Book> iterator = inventory.iterator();
+        while(iterator.hasNext()) {
+            Book book = iterator.next();
             if(currentYear - book.getYear() > yearThreshold) {
                 removedBooks.add(book);
-                inventory.remove(i);
+                iterator.remove();
                 System.out.println("Removed outdated book: " + book);
             }
         }
-
+        if(removedBooks.isEmpty()) {
+            System.out.println("No outdated books found.");
+        }
+        else {
+            System.out.println("Removed " + removedBooks.size() + " outdated books.");
+        }
         return removedBooks;
     }
 
     public double buyBook(String isbn, int quantity, String email, String address) {
+        if (isbn == null || isbn.trim().isEmpty()) {
+            throw new IllegalArgumentException("ISBN cannot be null or empty");
+        }
+        if (quantity <= 0) {
+            throw new IllegalArgumentException("Quantity must be positive");
+        }
+        if (email == null || email.trim().isEmpty()) {
+            throw new IllegalArgumentException("Email cannot be null or empty");
+        }
+        if (address == null || address.trim().isEmpty()) {
+            throw new IllegalArgumentException("Address cannot be null or empty");
+        }
+        
         for(Book book : inventory) {
             if (book.getIsbn().equals(isbn)) {
                 return book.buy(quantity, email, address);
